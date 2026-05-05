@@ -12,7 +12,6 @@ if (!$connection) die("Database connection failed: " . mysqli_connect_error());
 
 $active_page = 'dashboard';
 
-// ── REAL STATS ────────────────────────────────────────────────────────────────
 $total_prisoners = mysqli_fetch_assoc(mysqli_query($connection,
     "SELECT COUNT(*) AS total FROM prisoners WHERE status = 'active'"))['total'];
 
@@ -69,7 +68,6 @@ $logs_result = mysqli_query($connection,
     <h1>Welcome back, <?= htmlspecialchars($username) ?>!</h1>
     <p class="page-subtitle">Here is today's overview of Maula Prison.</p>
 
-    <!-- Near-release notification for admin -->
     <?php if ($role === 'admin' && $near_release_count > 0): ?>
         <div class="alert alert-error" style="display:flex; align-items:center; gap:10px;">
             🔔 <strong>Release Alert:</strong>&nbsp;
@@ -78,7 +76,6 @@ $logs_result = mysqli_query($connection,
         </div>
     <?php endif; ?>
 
-    <!-- STATS CARDS -->
     <div class="stats-grid">
         <div class="stat-card">
 
@@ -112,7 +109,6 @@ $logs_result = mysqli_query($connection,
 
 
 
-    <!-- UPCOMING RELEASES -->
     <?php if (mysqli_num_rows($upcoming_result) > 0): ?>
     <div style="margin-bottom:32px;">
         <h2 style="font-size:1.1rem; margin-bottom:14px; color:#333;">⚠️ Upcoming Releases (Next 30 Days)</h2>
@@ -145,7 +141,6 @@ $logs_result = mysqli_query($connection,
     </div>
     <?php endif; ?>
 
-    <!-- RECENT ACTIVITY LOG -->
     <div>
         <h2 style="font-size:1.1rem; margin-bottom:14px; color:#333;">🕐 Recent Activity</h2>
         <div class="table-card">
