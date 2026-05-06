@@ -98,3 +98,26 @@ if ($role === 'admin' && isset($connection)) {
     </div>
 
 </nav>
+<script>
+// Live clock
+function updateClock() {
+    var now  = new Date();
+    var days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    var mons = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    var h = String(now.getHours()).padStart(2,'0');
+    var m = String(now.getMinutes()).padStart(2,'0');
+    var s = String(now.getSeconds()).padStart(2,'0');
+    var el = document.getElementById('live-clock');
+    if (el) el.textContent =
+        days[now.getDay()] + ', ' + now.getDate() + ' ' + mons[now.getMonth()] +
+        ' ' + now.getFullYear() + '  ' + h + ':' + m + ':' + s;
+}
+updateClock();
+setInterval(updateClock, 1000);
+
+// Hamburger toggle
+document.getElementById('hamburger-btn').addEventListener('click', function() {
+    var menu = document.getElementById('navbar-menu');
+    menu.classList.toggle('nav-open');
+});
+</script>
