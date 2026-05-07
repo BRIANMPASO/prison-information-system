@@ -12,6 +12,7 @@ if (!$connection) die("Database connection failed: " . mysqli_connect_error());
 
 $active_page = 'dashboard';
 
+// ── REAL STATS ────────────────────────────────────────────────────────────────
 $total_prisoners = mysqli_fetch_assoc(mysqli_query($connection,
     "SELECT COUNT(*) AS total FROM prisoners WHERE status = 'active'"))['total'];
 
@@ -68,6 +69,7 @@ $logs_result = mysqli_query($connection,
     <h1>Welcome back, <?= htmlspecialchars($username) ?>!</h1>
     <p class="page-subtitle">Here is today's overview of Maula Prison.</p>
 
+    <!-- Near-release notification for admin -->
     <?php if ($role === 'admin' && $near_release_count > 0): ?>
         <div class="alert alert-error" style="display:flex; align-items:center; gap:10px;">
             🔔 <strong>Release Alert:</strong>&nbsp;
@@ -76,30 +78,31 @@ $logs_result = mysqli_query($connection,
         </div>
     <?php endif; ?>
 
+    <!-- STATS CARDS -->
     <div class="stats-grid">
         <div class="stat-card">
-
+        
             <div class="stat-info">
                 <span class="stat-number"><?= $total_prisoners ?></span>
                 <span class="stat-label">Active Prisoners</span>
             </div>
         </div>
         <div class="stat-card">
-
+        
             <div class="stat-info">
                 <span class="stat-number"><?= $occupied_cells ?></span>
                 <span class="stat-label">Occupied Cells</span>
             </div>
         </div>
         <div class="stat-card">
-
+        
             <div class="stat-info">
                 <span class="stat-number"><?= $total_staff ?></span>
                 <span class="stat-label">Staff Members</span>
             </div>
         </div>
         <div class="stat-card">
-
+            
             <div class="stat-info">
                 <span class="stat-number"><?= $releases_this_month ?></span>
                 <span class="stat-label">Releases This Month</span>
@@ -107,11 +110,12 @@ $logs_result = mysqli_query($connection,
         </div>
     </div>
 
+   
 
-
+    <!-- UPCOMING RELEASES -->
     <?php if (mysqli_num_rows($upcoming_result) > 0): ?>
     <div style="margin-bottom:32px;">
-      <hr>  <h2 style="font-size:1.1rem; margin-bottom:14px; color:#333;">⚠️ Upcoming Releases </h2><hr>
+        <h2 style="font-size:1.1rem; margin-bottom:14px; color:#333;">⚠️ Upcoming Releases (Next 30 Days)</h2>
         <div class="table-card">
             <table class="data-table">
                 <thead>
@@ -141,8 +145,9 @@ $logs_result = mysqli_query($connection,
     </div>
     <?php endif; ?>
 
+    <!-- RECENT ACTIVITY LOG -->
     <div>
-      <hr>  <h2 style="font-size:1.1rem; margin-bottom:14px; color:#333;">🕐 Recent Activity</h2><hr>
+        <h2 style="font-size:1.1rem; margin-bottom:14px; color:#333;">🕐 Recent Activity</h2>
         <div class="table-card">
             <table class="data-table">
                 <thead>

@@ -1,4 +1,9 @@
 <?php
+// nav.php — included at the top of every page after session check
+// Required variables set by the including page:
+//   $username    — logged-in username
+//   $role        — 'admin' | 'staff' | 'receptionist'
+//   $active_page — e.g. 'dashboard', 'prisoners', 'visitors' …
 
 // Count pending prisoner submissions for the admin badge
 $pending_count = 0;
@@ -26,11 +31,12 @@ if ($role === 'admin' && isset($connection)) {
     <div class="navbar-row1">
         <div class="navbar-brand">
             <img src="icon.png" alt="Logo" class="nav-logo">
-            <span> Maula <span>Prison System
+             Maula Prison System
         </div>
         <div class="navbar-user">
             <span id="live-clock" class="nav-clock"></span>
-            <span class="role-badge">👤<?= htmlspecialchars(ucfirst($role)) ?></span>
+            <span>👤 <?= htmlspecialchars($username) ?></span>
+            <span class="role-badge"><?= htmlspecialchars(ucfirst($role)) ?></span>
             <a href="logout.php" class="logout-btn"
                onclick="return confirm('Are you sure you want to logout?')">Logout</a>
             <!-- Hamburger (mobile only) -->

@@ -18,7 +18,7 @@ if (!$connection) die("Database connection failed: " . mysqli_connect_error());
 
 $active_page = 'submit_prisoner';
 
-//checks capacity
+// ── CAPACITY CHECK ────────────────────────────────────────────────────────────
 $capacity_info = mysqli_fetch_assoc(mysqli_query($connection,
     "SELECT
         (SELECT COALESCE(SUM(capacity),0) FROM cells) AS total_capacity,
@@ -28,7 +28,7 @@ $total_capacity = intval($capacity_info['total_capacity']);
 $total_active   = intval($capacity_info['total_active']);
 $prison_full    = ($total_capacity > 0 && $total_active >= $total_capacity);
 
-//load all cells with space
+// ── LOAD AVAILABLE CELLS (only cells with space) ──────────────────────────────
 $cells_result = mysqli_query($connection,
     "SELECT c.id, c.cell_number, c.block, c.capacity,
             COUNT(p.id) AS occupants
@@ -41,7 +41,7 @@ $cells_result = mysqli_query($connection,
 $available_cells = [];
 while ($c = mysqli_fetch_assoc($cells_result)) $available_cells[] = $c;
 
-//form submission part
+// ── HANDLE FORM SUBMISSION ────────────────────────────────────────────────────
 $success_message = '';
 $error_message   = '';
 
@@ -63,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_prisoner'])) {
             $error_message = "Cannot submit — prison is at full capacity ($total_active/$total_capacity beds).";
 
         } else {
-            //check to see if the chosen cell is still not full
+            // Double-check the chosen cell is still not full
             $cell_check = mysqli_fetch_assoc(mysqli_query($connection,
                 "SELECT c.capacity, COUNT(p.id) AS occupants, c.cell_number
                  FROM cells c
@@ -110,7 +110,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit_prisoner'])) {
     }
 }
 
-//recent prisoner submissions
+// ── LOAD THIS RECEPTIONIST'S RECENT SUBMISSIONS ───────────────────────────────
 $my_submissions = mysqli_query($connection,
     "SELECT pp.*, c.cell_number
      FROM pending_prisoners pp
@@ -140,7 +140,7 @@ $today_val = date('Y-m-d');
     <h1>📋 Submit Prisoner for Approval</h1>
     <p class="page-subtitle">Fill in the prisoner details below. An admin will review and approve your submission.</p>
 
-    <!--info about prison capacity-->
+    <!-- Prison capacity info -->
     <?php if ($prison_full): ?>
         <div class="alert alert-error">
             ⛔ <strong>Prison is at full capacity</strong> (<?= $total_active ?>/<?= $total_capacity ?> beds) — submissions cannot be made until a prisoner is released.
@@ -152,7 +152,7 @@ $today_val = date('Y-m-d');
         </div>
     <?php endif; ?>
 
-    <!--flash messages-->
+    <!-- Flash messages -->
     <?php if ($success_message): ?>
         <div class="alert alert-success" id="flash-msg"><?= htmlspecialchars($success_message) ?></div>
         <script>
@@ -174,7 +174,7 @@ $today_val = date('Y-m-d');
         </script>
     <?php endif; ?>
 
-    <!--submission form-->
+    <!-- SUBMISSION FORM -->
     <?php if (!$prison_full): ?>
     <div class="form-card">
         <h2>New Prisoner Details</h2>
@@ -236,7 +236,7 @@ $today_val = date('Y-m-d');
     </div>
     <?php endif; ?>
 
-    <!--recent submissions-->
+    <!-- MY RECENT SUBMISSIONS -->
     <h2 style="font-size:1.1rem; margin-bottom:14px; color:#333;">My Recent Submissions</h2>
     <div class="table-card">
         <table class="data-table">

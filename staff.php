@@ -234,7 +234,8 @@ $show_form = isset($_GET['action']) && $_GET['action'] === 'add';
                 <span style="font-size:0.85rem;color:#888;">
                     Showing <?= mysqli_num_rows($staff_result) ?> of <?= $pager['total'] ?> records
                 </span>
-
+                <a href="export.php?table=staff&search=<?= urlencode($search) ?>&shift=<?= urlencode($shift_filter) ?>"
+                   class="action-btn" style="font-size:0.8rem;padding:6px 14px;">⬇ Export CSV</a>
             </div>
             <table class="data-table">
                 <thead>
