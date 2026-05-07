@@ -16,7 +16,7 @@ unset($_SESSION['flash_error']);
 
 <div class="login-card">
 
-    <img src="icon/icon.png" alt="Maula Prison Logo" class="login-logo"
+    <img src="icon.png" alt="Maula Prison Logo" class="login-logo"
          onerror="this.style.display='none'">
 
     <h1>Maula Prison System</h1>

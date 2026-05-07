@@ -115,7 +115,7 @@ $logs_result = mysqli_query($connection,
     <!-- UPCOMING RELEASES -->
     <?php if (mysqli_num_rows($upcoming_result) > 0): ?>
     <div style="margin-bottom:32px;">
-        <h2 style="font-size:1.1rem; margin-bottom:14px; color:#333;">⚠️ Upcoming Releases (Next 30 Days)</h2>
+       <hr> <h2 style="font-size:1.1rem; margin-bottom:14px; color:#333;">⚠️ Upcoming Releases </h2><hr>
         <div class="table-card">
             <table class="data-table">
                 <thead>
@@ -147,7 +147,7 @@ $logs_result = mysqli_query($connection,
 
     <!-- RECENT ACTIVITY LOG -->
     <div>
-        <h2 style="font-size:1.1rem; margin-bottom:14px; color:#333;">🕐 Recent Activity</h2>
+      <hr>  <h2 style="font-size:1.1rem; margin-bottom:14px; color:#333;">🕐 Recent Activity</h2><hr>
         <div class="table-card">
             <table class="data-table">
                 <thead>
