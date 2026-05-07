@@ -152,8 +152,9 @@ $show_form = isset($_GET['action']) && $_GET['action'] === 'add';
 
         <!-- SEARCH BAR -->
         <form method="GET" action="visitors.php" class="search-bar">
-            <input type="text" name="search"
-                   placeholder="🔍 Search by visitor or prisoner name..."
+          <fieldset ><legend>Quick search</legend>
+
+            <input type="text" name="search"   placeholder="🔍 Search by visitor or prisoner name..."
                    value="<?= htmlspecialchars($search) ?>">
 
             <select name="status">
@@ -168,6 +169,7 @@ $show_form = isset($_GET['action']) && $_GET['action'] === 'add';
             <?php if ($search || $status_filter): ?>
                 <a href="visitors.php" class="action-btn" style="background:#888;">Clear</a>
             <?php endif; ?>
+            </fieldset>
         </form>
 
         <!-- ADD VISIT BUTTON -->

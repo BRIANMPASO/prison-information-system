@@ -1,15 +1,10 @@
-/* ══════════════════════════════════════════════════════════════
-   MAULA PRISON SYSTEM — style.css
-   ══════════════════════════════════════════════════════════════ */
 
-/* ── RESET ────────────────────────────────────────────────── */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* ── BASE ─────────────────────────────────────────────────── */
 body {
     font-family: sans-serif;
     background-color: whitesmoke;
@@ -20,9 +15,7 @@ a {
     color: inherit;
 }
 
-/* ══════════════════════════════════════════════════════════
-   LOGIN PAGE
-   ══════════════════════════════════════════════════════════ */
+
 .login-body {
     display: flex;
     justify-content: center;
@@ -107,9 +100,7 @@ a {
 }
 
 
-/* ══════════════════════════════════════════════════════════
-   DASHBOARD BODY
-   ══════════════════════════════════════════════════════════ */
+/*    DASHBOARD BODY    */
 body.dashboard-body {
     background-color: #f4f5f7;
     display: block;
@@ -117,9 +108,7 @@ body.dashboard-body {
 }
 
 
-/* ══════════════════════════════════════════════════════════
-   TOP NAVBAR — TWO ROWS
-   ══════════════════════════════════════════════════════════ */
+/*    TOP NAVBAR — TWO ROWS   */
 .navbar {
     background-color: #111;
     color: white;
@@ -141,16 +130,18 @@ body.dashboard-body {
     display: flex;
     align-items: center;
     gap: 10px;
-    font-size: 1.05rem;
+    font-size: 24px;
     font-weight: bold;
     letter-spacing: 0.4px;
 }
 .nav-logo {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    object-fit: cover;
+    width: 60px;
+    height: auto;
+    margin:0;float:right;
 }
+.nav-row1 span{
+  font-size:30px;
+  }
 .navbar-user {
     display: flex;
     align-items: center;
